@@ -11,11 +11,13 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image
-      - docker build -t devops .
-      - docker tag devops:latest 003405557128.dkr.ecr.us-east-1.amazonaws.com/devops:latest
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:latest
   post_build:
     commands:
-      - docker push 003405557128.dkr.ecr.us-east-1.amazonaws.com/devops:latest
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:latest:latest
       - printf '[{"name":"devops","imageUri":"%s"}]'    $REPOSITORY_URI:latest > imagedefinitions.json
       - cat imagedefinitions.json
 artifacts:
