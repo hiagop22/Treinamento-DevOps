@@ -17,7 +17,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker images...
-      - docker push $REPOSITORY_URI:latest:latest
+      - docker push $REPOSITORY_URI:latest
       - printf '[{"name":"devops","imageUri":"%s"}]'    $REPOSITORY_URI:latest > imagedefinitions.json
       - cat imagedefinitions.json
 artifacts:
